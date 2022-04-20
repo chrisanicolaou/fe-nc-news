@@ -13,7 +13,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Articles />} />
-        <Route path="/topics/:topic_id" element={<Articles />} />
+        <Route path="/topics/:topic_name" element={<Articles />} />
         <Route path="/users" element={<Users />} />
         <Route path="/articles/:article_id" element={<Article />} />
       </Routes>

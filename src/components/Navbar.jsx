@@ -3,24 +3,26 @@ import { Link } from "react-router-dom";
 import { getReq } from "../utils/api";
 
 const Navbar = () => {
-  const [topics, setTopics] = useState([
-    {
-      slug: "coding",
-    },
-    {
-      slug: "football",
-    },
-    {
-      slug: "cooking",
-    },
-  ]);
-  useEffect(() => {});
+  const [topics, setTopics] = useState([]);
+  useEffect(() => {
+    const asyncEffect = async () => {
+      const result = await getReq("/topics");
+      setTopics(result);
+    };
+    asyncEffect();
+  }, []);
   return (
     <nav className="text-center">
-      <Link to="/topics/:topic_id">Topic #1</Link>
-      <Link to="/topics/:topic_id">Topic #2</Link>
-      <Link to="/topics/:topic_id">Topic #3</Link>
-      <Link to="/users">Users</Link>
+      {topics.map((topic) => {
+        return (
+          <Link to={`/topics/${topic.slug}`} key={topic.slug} className="p-2">
+            {topic.slug}
+          </Link>
+        );
+      })}
+      <Link to="/users" className="p-2">
+        Users
+      </Link>
     </nav>
   );
 };

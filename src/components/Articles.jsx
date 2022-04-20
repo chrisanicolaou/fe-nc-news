@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getReq } from "../utils/api";
 
 const Articles = () => {
+  const { topic_name } = useParams();
   const [articleList, setArticleList] = useState([]);
   const [err, setErr] = useState(null);
 
@@ -10,14 +11,19 @@ const Articles = () => {
     const asyncEffect = async () => {
       try {
         const result = await getReq("/articles");
-        setArticleList(result);
-        console.log(result);
+        if (topic_name) {
+          setArticleList(() => {
+            return result.filter((article) => article.topic === topic_name);
+          });
+        } else {
+          setArticleList(result);
+        }
       } catch (err) {
         setErr("404 - Articles not found!");
       }
     };
     asyncEffect();
-  }, []);
+  }, [topic_name]);
 
   if (err) {
     return <p>{err}</p>;
