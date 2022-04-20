@@ -27,15 +27,15 @@ const Articles = () => {
     <ul className="flex flex-col justify-center">
       {articleList.map((article) => {
         return (
-          <Link to={`/articles/${article.article_id}`}>
-            <li
-              key={article.article_id}
-              className="border-2 text-center hover:bg-cyan-300"
-            >
+          <li
+            key={article.article_id}
+            className="border-2 text-center hover:bg-cyan-300"
+          >
+            <Link to={`/articles/${article.article_id}`}>
               <h3>{article.title}</h3>
               <p>{article.author}</p>
-            </li>
-          </Link>
+            </Link>
+          </li>
         );
       })}
     </ul>
