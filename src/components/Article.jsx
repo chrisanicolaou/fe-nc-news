@@ -55,7 +55,7 @@ const Article = () => {
           );
         })}
       </ul>
-      <Comment />
+      <Comment article={article} />
     </article>
   );
 };
