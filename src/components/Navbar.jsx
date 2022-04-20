@@ -7,7 +7,7 @@ const Navbar = () => {
   useEffect(() => {
     const asyncEffect = async () => {
       const result = await getReq("/topics");
-      setTopics(result);
+      setTopics(result.topics);
     };
     asyncEffect();
   }, []);

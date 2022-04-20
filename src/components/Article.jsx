@@ -14,12 +14,13 @@ const Article = () => {
     const asyncEffect = async () => {
       try {
         const articleFromApi = await getReq(`/articles/${article_id}`);
-        setArticle(articleFromApi);
-        if (articleFromApi.comment_count > 0) {
+        setArticle(articleFromApi.article);
+        if (articleFromApi.article.comment_count > 0) {
           const commentsFromApi = await getReq(
             `/articles/${article_id}/comments`
           );
-          setComments(commentsFromApi);
+          console.log(commentsFromApi.comments);
+          setComments(commentsFromApi.comments);
         }
       } catch (err) {
         setErr(
