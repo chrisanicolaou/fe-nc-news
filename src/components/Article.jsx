@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReq, postReq } from "../utils/api";
+import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 
 const Article = () => {
@@ -8,7 +9,7 @@ const Article = () => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [err, setErr] = useState(null);
-  const [username, setUsername] = useState("jessjelly");
+  const [username] = useState("jessjelly"); //hard-coded username for manual-testing
   const [newCommentToPost, setNewCommentToPost] = useState("");
   const [isReadyToSend, setIsReadyToSend] = useState(true);
 
@@ -32,27 +33,30 @@ const Article = () => {
     asyncEffect();
   }, [article_id]);
 
-  const handleSubmit = async (event) => {
+  const handleCommentPost = async (event) => {
     try {
       event.preventDefault();
-      console.log(comments);
       if (newCommentToPost !== "" && isReadyToSend) {
         setIsReadyToSend(false);
         setComments((currentComments) => {
           return [
-            ...currentComments,
             {
               body: newCommentToPost,
               author: username,
               votes: 0,
               comment_id: `new_${(Math.random() * 100).toString()}`,
             },
+            ...currentComments,
           ];
         });
         await postReq(`/articles/${article_id}/comments`, {
           body: newCommentToPost,
           username: username,
         });
+        let newCommentsFromApi = await getReq(
+          `/articles/${article_id}/comments`
+        );
+        setComments(newCommentsFromApi.comments);
         setNewCommentToPost("");
         setIsReadyToSend(true);
       }
@@ -81,12 +85,17 @@ const Article = () => {
             <li key={comment.comment_id}>
               <p>{comment.body}</p>
               <p>{comment.author}</p>
+              <DeleteButton
+                comment={comment}
+                setComments={setComments}
+                username={username}
+              />
               <LikeButton comment={comment} article={""} />
             </li>
           );
         })}
       </ul>
-      <form onSubmit={handleSubmit} className="flex flex-col">
+      <form onSubmit={handleCommentPost} className="flex flex-col">
         <label htmlFor="comment-body">
           Post a comment below! {300 - newCommentToPost.length}
         </label>

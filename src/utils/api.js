@@ -18,3 +18,7 @@ export const postReq = async (path, dataToPost) => {
   const res = await newsApi.post(path, dataToPost);
   return res.data;
 };
+
+export const deleteReq = async (path) => {
+  await newsApi.delete(path);
+};
