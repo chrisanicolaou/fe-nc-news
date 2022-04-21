@@ -1,27 +1,39 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getReq } from "../utils/api";
+import SortSelect from "./SortSelect";
 
 const Articles = () => {
   const { topic_name } = useParams();
   const [articleList, setArticleList] = useState([]);
   const [err, setErr] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
     const asyncEffect = async () => {
       try {
         let path = "/articles";
+        let queries = "";
         if (topic_name) {
-          path += `?topic=${topic_name}`;
+          queries += `?topic=${topic_name}`;
         }
+        if (selectedOption) {
+          if (queries) {
+            queries += `&${selectedOption}`;
+          } else {
+            queries += `?${selectedOption}`;
+          }
+        }
+        path += queries;
         const result = await getReq(path);
+        console.log(result.articles);
         setArticleList(result.articles);
       } catch (err) {
         setErr("404 - Articles not found!");
       }
     };
     asyncEffect();
-  }, [topic_name]);
+  }, [topic_name, selectedOption]);
 
   if (err) {
     return <p>{err}</p>;
@@ -29,6 +41,7 @@ const Articles = () => {
 
   return (
     <ul className="flex flex-col justify-center">
+      <SortSelect setSelectedOption={setSelectedOption} />
       {articleList.map((article) => {
         return (
           <li
