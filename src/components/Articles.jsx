@@ -10,14 +10,12 @@ const Articles = () => {
   useEffect(() => {
     const asyncEffect = async () => {
       try {
-        const result = await getReq("/articles");
+        let path = "/articles";
         if (topic_name) {
-          setArticleList(() => {
-            return result.filter((article) => article.topic === topic_name);
-          });
-        } else {
-          setArticleList(result);
+          path += `?topic=${topic_name}`;
         }
+        const result = await getReq(path);
+        setArticleList(result.articles);
       } catch (err) {
         setErr("404 - Articles not found!");
       }

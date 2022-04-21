@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const newsApi = axios.create({
-  baseURL: "https://nc-backend-project.herokuapp.com/api",
+  baseURL: "https://christos-be-nc-news-example.herokuapp.com/api",
 });
 
 export const getReq = async (path) => {
@@ -11,5 +11,10 @@ export const getReq = async (path) => {
 
 export const patchReq = async (path, dataToPatch) => {
   const res = await newsApi.patch(path, dataToPatch);
+  return res.data;
+};
+
+export const postReq = async (path, dataToPost) => {
+  const res = await newsApi.post(path, dataToPost);
   return res.data;
 };
