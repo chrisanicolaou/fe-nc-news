@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import { patchReq } from "../utils/api";
 
-const LikeButton = ({ article }) => {
+const LikeButton = ({ article, comment }) => {
   const [currentVotes, setCurrentVotes] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  const [path, setPath] = useState("");
 
   useEffect(() => {
-    setCurrentVotes(article.votes);
-  }, [article.votes]);
+    if (!article) {
+      setPath(`/comments/${comment.comment_id}`);
+      setCurrentVotes(comment.votes);
+    } else {
+      setPath(`/articles/${article.article_id}`);
+      setCurrentVotes(article.votes);
+    }
+  }, [article.votes, comment.votes, comment.comment_id, article]);
 
   const clickHandler = async () => {
     try {
       const increment = isLiked ? -1 : 1;
       setCurrentVotes(currentVotes + increment);
       setIsLiked(!isLiked);
-      await patchReq(`/articles/${article.article_id}`, {
+      await patchReq(path, {
         inc_votes: increment,
       });
     } catch (err) {}

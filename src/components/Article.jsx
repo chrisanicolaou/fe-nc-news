@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getReq } from "../utils/api";
-import Comment from "./Comment";
+import { getReq, postReq } from "../utils/api";
 import LikeButton from "./LikeButton";
 
 const Article = () => {
@@ -9,6 +8,9 @@ const Article = () => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [err, setErr] = useState(null);
+  const [username, setUsername] = useState("jessjelly");
+  const [newCommentToPost, setNewCommentToPost] = useState("");
+  const [isReadyToSend, setIsReadyToSend] = useState(true);
 
   useEffect(() => {
     const asyncEffect = async () => {
@@ -19,7 +21,6 @@ const Article = () => {
           const commentsFromApi = await getReq(
             `/articles/${article_id}/comments`
           );
-          console.log(commentsFromApi.comments);
           setComments(commentsFromApi.comments);
         }
       } catch (err) {
@@ -30,6 +31,35 @@ const Article = () => {
     };
     asyncEffect();
   }, [article_id]);
+
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      console.log(comments);
+      if (newCommentToPost !== "" && isReadyToSend) {
+        setIsReadyToSend(false);
+        setComments((currentComments) => {
+          return [
+            ...currentComments,
+            {
+              body: newCommentToPost,
+              author: username,
+              votes: 0,
+              comment_id: `new_${(Math.random() * 100).toString()}`,
+            },
+          ];
+        });
+        await postReq(`/articles/${article_id}/comments`, {
+          body: newCommentToPost,
+          username: username,
+        });
+        setNewCommentToPost("");
+        setIsReadyToSend(true);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (err) {
     return <p>{err}</p>;
@@ -43,7 +73,7 @@ const Article = () => {
         <br></br>
         <p>{article.body}</p>
         <br></br>
-        <LikeButton article={article} />
+        <LikeButton article={article} comment={""} />
       </div>
       <ul>
         {comments.map((comment) => {
@@ -51,12 +81,25 @@ const Article = () => {
             <li key={comment.comment_id}>
               <p>{comment.body}</p>
               <p>{comment.author}</p>
-              <p>{comment.votes}</p>
+              <LikeButton comment={comment} article={""} />
             </li>
           );
         })}
       </ul>
-      <Comment article={article} />
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <label htmlFor="comment-body">
+          Post a comment below! {300 - newCommentToPost.length}
+        </label>
+        <textarea
+          name="comment-body"
+          maxLength="300"
+          value={newCommentToPost}
+          onChange={(event) => {
+            setNewCommentToPost(event.target.value);
+          }}
+        ></textarea>
+        <button>Submit</button>
+      </form>
     </article>
   );
 };
