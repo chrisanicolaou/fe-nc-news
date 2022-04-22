@@ -31,7 +31,7 @@ const Articles = () => {
         setArticleList(result.articles);
       } catch (err) {
         setErr(
-          "404 - Articles not found! There may be nothing written about this topic yet. Please don't be upset :/"
+          "400 - Articles don't exist! There may be nothing written about this topic yet. Please don't be upset :/"
         );
       }
     };

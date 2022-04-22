@@ -26,9 +26,16 @@ const Article = () => {
           setComments(commentsFromApi.comments);
         }
       } catch (err) {
-        setErr(
-          "404 - We don't know where your article is! Please try again :)"
-        );
+        if (err.response.status === 400) {
+          setErr(
+            "400 - There is something wrong with your search! Please try again :O"
+          );
+        }
+        if (err.response.status === 404) {
+          setErr(
+            "404 - We don't know where your article is! Please try again :O"
+          );
+        }
       }
     };
     asyncEffect();
