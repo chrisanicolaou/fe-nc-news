@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReq, postReq } from "../utils/api";
+import CommentSortSelect from "./CommentSortSelect";
 import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 import ReturnHomeButton from "./ReturnHomeButton";
@@ -13,6 +14,9 @@ const Article = () => {
   const [username] = useState("jessjelly"); //hard-coded username for manual-testing
   const [newCommentToPost, setNewCommentToPost] = useState("");
   const [isReadyToSend, setIsReadyToSend] = useState(true);
+  const [commentSortOption, setCommentSortOption] = useState(
+    "sort_by=created_at&order=desc"
+  );
 
   useEffect(() => {
     const asyncEffect = async () => {
@@ -21,7 +25,7 @@ const Article = () => {
         setArticle(articleFromApi.article);
         if (articleFromApi.article.comment_count > 0) {
           const commentsFromApi = await getReq(
-            `/articles/${article_id}/comments`
+            `/articles/${article_id}/comments?${commentSortOption}`
           );
           setComments(commentsFromApi.comments);
         }
@@ -39,7 +43,7 @@ const Article = () => {
       }
     };
     asyncEffect();
-  }, [article_id]);
+  }, [article_id, commentSortOption]);
 
   const handleCommentPost = async (event) => {
     try {
@@ -90,7 +94,7 @@ const Article = () => {
 
   return (
     <article className="text-center">
-      <div className="text-white bg-slate-700 p-2">
+      <div className="text-white bg-sonic-silver mb-10 p-2">
         <h1>{article.title}</h1>
         <h3>{article.author}</h3>
         <br></br>
@@ -98,6 +102,8 @@ const Article = () => {
         <br></br>
         <LikeButton article={article} comment={""} />
       </div>
+      <h1>Comments:</h1>
+      <CommentSortSelect setCommentSortOption={setCommentSortOption} />
       <ul>
         {comments.map((comment) => {
           return (
