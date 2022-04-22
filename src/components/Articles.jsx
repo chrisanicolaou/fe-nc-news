@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getReq } from "../utils/api";
 import SortSelect from "./SortSelect";
+import ReturnHomeButton from "./ReturnHomeButton";
 
 const Articles = () => {
   const { topic_name } = useParams();
@@ -14,6 +15,7 @@ const Articles = () => {
       try {
         let path = "/articles";
         let queries = "";
+        setErr(null);
         if (topic_name) {
           queries += `?topic=${topic_name}`;
         }
@@ -28,14 +30,21 @@ const Articles = () => {
         const result = await getReq(path);
         setArticleList(result.articles);
       } catch (err) {
-        setErr("404 - Articles not found!");
+        setErr(
+          "404 - Articles not found! There may be nothing written about this topic yet. Please don't be upset :/"
+        );
       }
     };
     asyncEffect();
   }, [topic_name, selectedOption]);
 
   if (err) {
-    return <p>{err}</p>;
+    return (
+      <div className="flex flex-col justify-center text-center">
+        <h1>{err}</h1>
+        <ReturnHomeButton />
+      </div>
+    );
   }
 
   return (
