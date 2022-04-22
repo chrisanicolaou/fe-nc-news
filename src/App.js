@@ -9,8 +9,10 @@ import NotFound from "./components/NotFound";
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Navbar />
+      <div className="sticky top-0">
+        <Header />
+        <Navbar />
+      </div>
       <Routes>
         <Route path="/" element={<Articles />} />
         <Route path="/topics/:topic_name" element={<Articles />} />

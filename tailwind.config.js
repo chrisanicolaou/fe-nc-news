@@ -9,6 +9,9 @@ module.exports = {
         "roman-silver": "#87919E",
         "sonic-silver": "#707078",
       },
+      fontFamily: {
+        poppins: ["Poppins", "sens-serif"],
+      },
     },
   },
   plugins: [],

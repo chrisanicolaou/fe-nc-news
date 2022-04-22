@@ -49,12 +49,14 @@ const Articles = () => {
 
   return (
     <ul className="flex flex-col justify-center">
-      <SortSelect setSelectedOption={setSelectedOption} />
+      <div className="sticky top-20">
+        <SortSelect setSelectedOption={setSelectedOption} />
+      </div>
       {articleList.map((article) => {
         return (
           <li
             key={article.article_id}
-            className="border-2 text-center hover:bg-cyan-300"
+            className="text-center p-2 m-3 bg-sonic-silver border-2 shadow-md rounded-lg border-umber text-white hover:bg-roman-silver hover:shadow-2xl"
           >
             <Link to={`/articles/${article.article_id}`}>
               <h3>{article.title}</h3>
