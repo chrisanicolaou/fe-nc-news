@@ -20,9 +20,6 @@ const Navbar = () => {
           </Link>
         );
       })}
-      <Link to="/users" className="p-2">
-        Users
-      </Link>
     </nav>
   );
 };
