@@ -6,7 +6,6 @@ const Navbar = () => {
   const [topics, setTopics] = useState([]);
   let location = useLocation();
   let currentTopic = location.pathname.replace("/topics/", "");
-  console.log(currentTopic);
   useEffect(() => {
     const asyncEffect = async () => {
       const result = await getReq("/topics");

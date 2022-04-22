@@ -56,7 +56,7 @@ const Articles = () => {
         return (
           <li
             key={article.article_id}
-            className="text-center p-2 m-3 bg-sonic-silver border-2 shadow-md rounded-lg border-umber text-white hover:bg-roman-silver hover:shadow-2xl"
+            className="text-center p-2 m-3 bg-white border-2 shadow-md rounded-lg border-umber text-bg-sonic-silver hover:bg-roman-silver hover:text-white hover:shadow-2xl"
           >
             <Link to={`/articles/${article.article_id}`}>
               <h3>{article.title}</h3>
