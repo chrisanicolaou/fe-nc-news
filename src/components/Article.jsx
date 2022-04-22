@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getReq, postReq } from "../utils/api";
 import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
+import ReturnHomeButton from "./ReturnHomeButton";
 
 const Article = () => {
   const { article_id } = useParams();
@@ -25,9 +26,16 @@ const Article = () => {
           setComments(commentsFromApi.comments);
         }
       } catch (err) {
-        setErr(
-          "404 - We don't know where your article is! Please try again :)"
-        );
+        if (err.response.status === 400) {
+          setErr(
+            "400 - There is something wrong with your search! Please try again :O"
+          );
+        }
+        if (err.response.status === 404) {
+          setErr(
+            "404 - We don't know where your article is! Please try again :O"
+          );
+        }
       }
     };
     asyncEffect();
@@ -36,6 +44,10 @@ const Article = () => {
   const handleCommentPost = async (event) => {
     try {
       event.preventDefault();
+      if (newCommentToPost === "") {
+        alert("You haven't entered a comment to post!");
+        return;
+      }
       if (newCommentToPost !== "" && isReadyToSend) {
         setIsReadyToSend(false);
         setComments((currentComments) => {
@@ -61,12 +73,19 @@ const Article = () => {
         setIsReadyToSend(true);
       }
     } catch (err) {
-      console.log(err);
+      setErr(
+        "There was a problem loading the comments! Dearest apologies - please try again!"
+      );
     }
   };
 
   if (err) {
-    return <p>{err}</p>;
+    return (
+      <div className="flex flex-col justify-center text-center">
+        <h1>{err}</h1>
+        <ReturnHomeButton />
+      </div>
+    );
   }
 
   return (
