@@ -26,7 +26,6 @@ const Articles = () => {
         }
         path += queries;
         const result = await getReq(path);
-        console.log(result.articles);
         setArticleList(result.articles);
       } catch (err) {
         setErr("404 - Articles not found!");
