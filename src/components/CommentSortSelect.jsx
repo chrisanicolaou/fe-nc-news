@@ -10,6 +10,7 @@ const options = [
 const CommentSortSelect = ({ setCommentSortOption }) => {
   return (
     <Select
+      className="text-black px-2"
       options={options}
       defaultValue={{ value: "sort_by=created_at&order=desc", label: "Newest" }}
       onChange={(e) => {

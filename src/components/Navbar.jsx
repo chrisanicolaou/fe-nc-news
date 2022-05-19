@@ -14,7 +14,7 @@ const Navbar = () => {
     asyncEffect();
   }, []);
   return (
-    <nav className="text-center flex flex-row justify-evenly bg-cadet-grey">
+    <nav className="text-center flex flex-row justify-center bg-black lg:w-1/2 lg:m-auto px-5">
       {topics.map((topic) => {
         return (
           <Link
@@ -22,8 +22,8 @@ const Navbar = () => {
             key={topic.slug}
             className={
               topic.slug !== currentTopic
-                ? "p-2 grow bg-cadet-grey hover:bg-umber hover:text-white"
-                : "p-2 grow bg-roman-silver text-white"
+                ? "p-2 grow bg-black text-white hover:bg-cadet-grey hover:text-black rounded-md"
+                : "p-2 grow bg-roman-silver text-black rounded-md"
             }
           >
             {topic.slug}

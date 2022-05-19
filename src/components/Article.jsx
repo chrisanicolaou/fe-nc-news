@@ -85,7 +85,7 @@ const Article = () => {
 
   if (err) {
     return (
-      <div className="flex flex-col justify-center text-center">
+      <div className="flex flex-col justify-center text-center lg:w-1/2 lg:m-auto">
         <h1>{err}</h1>
         <ReturnHomeButton />
       </div>
@@ -93,8 +93,8 @@ const Article = () => {
   }
 
   return (
-    <article className="text-center">
-      <div className="text-white bg-sonic-silver mb-10 p-2">
+    <article className="text-center lg:w-1/2 lg:m-auto">
+      <div className="text-white bg-sonic-silver mb-3 p-2 rounded-lg">
         <h1>{article.title}</h1>
         <h3>{article.author}</h3>
         <br></br>
@@ -102,9 +102,11 @@ const Article = () => {
         <br></br>
         <LikeButton article={article} comment={""} />
       </div>
-      <h1>Comments:</h1>
-      <CommentSortSelect setCommentSortOption={setCommentSortOption} />
-      <ul>
+      <h1 className="mb-2">Comments:</h1>
+      <div className="sticky top-24">
+        <CommentSortSelect setCommentSortOption={setCommentSortOption} />
+      </div>
+      <ul className="mt-2 px-2 bg-sonic-silver rounded-lg py-5 mb-10">
         {comments.map((comment) => {
           return (
             <li key={comment.comment_id}>
@@ -120,7 +122,7 @@ const Article = () => {
           );
         })}
       </ul>
-      <form onSubmit={handleCommentPost} className="flex flex-col">
+      <form onSubmit={handleCommentPost} className="flex flex-col px-2 mb-10">
         <label htmlFor="comment-body">
           Post a comment below! {300 - newCommentToPost.length}
         </label>
@@ -131,6 +133,7 @@ const Article = () => {
           onChange={(event) => {
             setNewCommentToPost(event.target.value);
           }}
+          className="text-black rounded-lg resize-none"
         ></textarea>
         <button>Submit</button>
       </form>

@@ -40,7 +40,7 @@ const Articles = () => {
 
   if (err) {
     return (
-      <div className="flex flex-col justify-center text-center">
+      <div className="flex flex-col justify-center text-center lg:w-1/2 lg:m-auto px-5">
         <h1>{err}</h1>
         <ReturnHomeButton />
       </div>
@@ -49,14 +49,14 @@ const Articles = () => {
 
   return (
     <ul className="flex flex-col justify-center">
-      <div className="sticky top-20">
+      <div className="sticky top-24 lg:w-1/2 lg:self-center px-5">
         <SortSelect setSelectedOption={setSelectedOption} />
       </div>
       {articleList.map((article) => {
         return (
           <li
             key={article.article_id}
-            className="text-center p-2 m-3 bg-white border-2 shadow-md rounded-lg border-umber text-bg-sonic-silver hover:bg-roman-silver hover:text-white hover:shadow-2xl"
+            className="text-center text-black p-5 m-3 lg:w-1/2 lg:self-center bg-cadet-grey border-2 shadow-md rounded-lg border-umber text-bg-sonic-silver hover:bg-roman-silver hover:text-white hover:shadow-2xl"
           >
             <Link to={`/articles/${article.article_id}`}>
               <h3>{article.title}</h3>
