@@ -17,6 +17,7 @@ const SortSelect = ({ setSelectedOption }) => {
       onChange={(e) => {
         setSelectedOption(e.value);
       }}
+      className="text-black"
     />
   );
 };

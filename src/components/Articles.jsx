@@ -9,6 +9,7 @@ const Articles = () => {
   const [articleList, setArticleList] = useState([]);
   const [err, setErr] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const asyncEffect = async () => {
@@ -29,6 +30,7 @@ const Articles = () => {
         path += queries;
         const result = await getReq(path);
         setArticleList(result.articles);
+        setIsLoading(false);
       } catch (err) {
         setErr(
           "400 - Articles don't exist! There may be nothing written about this topic yet. Please don't be upset :/"
@@ -43,6 +45,14 @@ const Articles = () => {
       <div className="flex flex-col justify-center text-center lg:w-1/2 lg:m-auto px-5">
         <h1>{err}</h1>
         <ReturnHomeButton />
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col justify-center text-center lg:w-1/2 lg:m-auto px-5">
+        <h1>Loading articles...</h1>
       </div>
     );
   }
