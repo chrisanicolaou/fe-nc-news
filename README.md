@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Welcome to my frontend project!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## A [deployed](https://glittery-crumble-9fe6a8.netlify.app/) React app that mimics the functionality of Reddit
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Table of contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. [Overview](#overview)
+2. [Setup](#setup)
+3. [Limitations](#limitations)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Overview
 
-### `npm run build`
+As a part of my studies at Northcoders, I was tasked with building a front end app for my [previously created backend](https://github.com/chrisanicolaou/NC-backend-project). The intention is to mimic the functionality of forum sites like Reddit, while gaining practical knowledge for building a front end using React.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**This app has been deployed to [Netlify](https://www.netlify.com/), and can be viewed online [here](https://glittery-crumble-9fe6a8.netlify.app/). Alternatively, if you would like to run the app locally, please follow the [setup](#setup) instructions.**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Prerequisite**: [Node](https://nodejs.org/en/) (version 16 or above)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+First, clone the repo and head into the root directory:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`git clone https://github.com/chrisanicolaou/fe-nc-news.git`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`cd fe-nc-news`
 
-## Learn More
+Now install the project's dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`npm install`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app can now be run locally:
 
-### Code Splitting
+`npm start`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Limitations
 
-### Making a Progressive Web App
+This app was my first solo React project on the course. This, coupled with the time limitations (I had 1 week to complete the project), forced me to focus on an MVP; given more time, I would have liked to further explore some of the tech I had decided to use.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+[**Tailwind**](https://tailwindcss.com/): While it was not mandatory to use a CSS framework, I had been experimenting with Tailwind in my spare time and wanted to use it for this project. I was charmed by Tailwind's easy-to-use utility classes and extensive docs. As is evident by the app, the styling is very basic - with a little more time I would have loved to use more of what Tailwind has to offer.
 
-### Advanced Configuration
+[**Additional React Hooks**](https://reactjs.org/docs/hooks-reference.html): My experiences with React up to this point had been limited to the useState & useEffect hooks. I would have liked to have implemented features that required different hooks; namely, useContext is one with widespread applications and definitely could have been useful here.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Login/Signup functionality**: At the moment, the app has a hardcoded 'user'. This was done to allow me to build the app in the timeframe allocated, without worrying about all the implications of different signed in users. This would have been nice to implement here, and would also have given me more opportunity to experiment with the useContext hook as previously mentioned.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Pagination**: The app currently does not implement any form of pagination. While the data set is small, this would be an important consideration on any successful forum app - or any app that works with large data sets.
